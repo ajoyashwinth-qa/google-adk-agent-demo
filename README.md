@@ -100,8 +100,6 @@ git branch -M main
 git push -u origin main
 ```
 
-If you want, I can provide the exact `gh` commands or attempt the creation if you provide a GitHub token; otherwise follow the steps above.
-
 Troubleshooting
 ---------------
 - If you still see frequent 503s after adding retries and reducing concurrency, check the Google Cloud Console for quota usage and consider upgrading.
@@ -111,7 +109,3 @@ Troubleshooting
 License
 -------
 MIT
-
-Contact
--------
-If you'd like, I can help create the GitHub repo for you (requires your GitHub permission/token) or wire RetryUtils into the ADK runner path that currently calls `generateContent` so per-run retries occur automatically. Tell me which you'd like me to do next.
