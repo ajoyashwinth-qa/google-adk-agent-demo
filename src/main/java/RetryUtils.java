@@ -1,3 +1,5 @@
+package com.example.aiagent;
+
 import com.google.genai.errors.ServerException;
 
 import java.lang.reflect.Method;
@@ -13,9 +15,6 @@ import java.util.logging.Logger;
 /**
  * Small retry helper for GenAI calls. Use this to wrap calls that may surface
  * com.google.genai.errors.ServerException (e.g. 503 model overloaded).
- *
- * Usage example:
- *   String result = RetryUtils.executeWithRetries(() -> myClient.generate(...), 5, 1000, 30000, 500);
  */
 public class RetryUtils {
     private static final Logger logger = Logger.getLogger(RetryUtils.class.getName());
@@ -88,6 +87,11 @@ public class RetryUtils {
         if (delay > maxDelayMs) delay = maxDelayMs;
         long jitter = (long) (RNG.nextDouble() * maxJitterMs);
         return delay + jitter;
+    }
+
+    // Public accessor used by AgentAction to inspect exceptions for server-suggested delay
+    public static Long inspectServerExceptionForDelay(Throwable t) {
+        return inspectForRetryAfter(t);
     }
 
     // inspect exception reflectively for possible Retry-After info
